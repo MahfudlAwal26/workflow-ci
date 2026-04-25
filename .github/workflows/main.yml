@@ -3,6 +3,8 @@ name: CI/CD MLflow
 on:
   push:
     branches: [ main ]
+permissions:
+ contents: write
 
 env:
   CSV_URL: "MLProject/preprocessed_data.csv"
