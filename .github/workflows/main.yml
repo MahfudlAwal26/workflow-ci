@@ -3,8 +3,9 @@ name: CI/CD MLflow
 on:
   push:
     branches: [ main ]
+
 permissions:
- contents: write
+  contents: write
 
 env:
   CSV_URL: "MLProject/preprocessed_data.csv"
@@ -48,41 +49,47 @@ jobs:
         cd MLProject
         mlflow run . -P data_path=preprocessed_data.csv --env-manager=local
 
-    - name: Get run_id
+    # 🔥 AUTO DETECT MODEL (FIX UTAMA)
+    - name: Get experiment & run_id
       run: |
-        RUN_ID=$(ls -td MLProject/mlruns/0/*/ | head -n 1 | cut -d'/' -f4)
-        echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV
+        echo "Searching model..."
+        for EXP in $(ls MLProject/mlruns); do
+          if [ "$EXP" != "meta.yaml" ]; then
+            for RUN in $(ls MLProject/mlruns/$EXP); do
+              if [ -d "MLProject/mlruns/$EXP/$RUN/artifacts/model" ]; then
+                echo "Found model in EXP=$EXP RUN=$RUN"
+                echo "EXP_ID=$EXP" >> $GITHUB_ENV
+                echo "RUN_ID=$RUN" >> $GITHUB_ENV
+                exit 0
+              fi
+            done
+          fi
+        done
 
-    # 🔥 DEBUG (biar gak error lagi)
+        echo "Model not found!"
+        exit 1
+
+    # 🔍 DEBUG (biar kelihatan jelas)
     - name: Debug artifacts
       run: |
-        echo "Isi artifacts:"
-        ls -R MLProject/mlruns/0/$RUN_ID/
-
-    # 🔥 VERIFY (lebih fleksibel)
-    - name: Verify artifacts exist
-      run: |
-        if [ ! -d "MLProject/mlruns/0/$RUN_ID/artifacts" ]; then
-          echo "Artifacts not found!"
-          exit 1
-        fi
+        echo "Isi mlruns:"
+        ls -R MLProject/mlruns/
 
     - name: Push mlruns
       run: |
         git config --global user.name "github-actions"
         git config --global user.email "actions@github.com"
-        git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}.git
         git add MLProject/mlruns
         git commit -m "Update mlruns" || echo "No changes"
         git push
 
-    # 🔥 BUILD DOCKER (nama konsisten)
+    # 🔥 BUILD DOCKER (FIX PATH)
     - name: Build Docker
       shell: bash -l {0}
       run: |
         conda activate mlflow-env
         mlflow models build-docker \
-        --model-uri "file://$GITHUB_WORKSPACE/MLProject/mlruns/0/$RUN_ID/artifacts/model" \
+        --model-uri "file://$GITHUB_WORKSPACE/MLProject/mlruns/$EXP_ID/$RUN_ID/artifacts/model" \
         --name student-performance-model
 
     - name: Login Docker
