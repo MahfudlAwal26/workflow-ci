@@ -61,7 +61,7 @@ jobs:
           source ~/.bashrc  # Ensure shell configuration is reloaded
           conda activate mlflow-env  # Ensure environment is activated
           cd MLProject
-          mlflow run . -P data_path=processed_data.csv --env-manager=local
+          mlflow run . -P data_path=preprocessed_data.csv --env-manager=local
 
       # Get latest run_id
       - name: Get latest MLflow run_id
