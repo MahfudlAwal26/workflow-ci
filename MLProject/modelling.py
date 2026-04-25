@@ -10,7 +10,7 @@ import mlflow.sklearn
 
 
 # ======================
-# 1. ARGUMENT (SUPPORT MLFLOW PROJECT)
+# ARGUMENT
 # ======================
 parser = argparse.ArgumentParser()
 parser.add_argument("--data_path", type=str, default="preprocessed_data.csv")
@@ -18,17 +18,16 @@ args = parser.parse_args()
 
 
 # ======================
-# 2. SET MLFLOW
+# MLFLOW SETUP
 # ======================
 mlflow.set_tracking_uri("file:./mlruns")
 mlflow.set_experiment("Student_Performance_Model")
 
-# AUTLOG
 mlflow.autolog()
 
 
 # ======================
-# 3. LOAD DATA
+# LOAD DATA
 # ======================
 df = pd.read_csv(args.data_path)
 
@@ -41,24 +40,22 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 
 # ======================
-# 4. TRAINING
+# TRAIN MODEL (TANPA start_run)
 # ======================
-with mlflow.start_run():
+model = LinearRegression()
+model.fit(X_train, y_train)
 
-    model = LinearRegression()
-    model.fit(X_train, y_train)
+y_pred = model.predict(X_test)
 
-    y_pred = model.predict(X_test)
+mae = mean_absolute_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
 
-    mae = mean_absolute_error(y_test, y_pred)
-    r2 = r2_score(y_test, y_pred)
+print("MAE:", mae)
+print("R2 Score:", r2)
 
-    print("MAE:", mae)
-    print("R2 Score:", r2)
+# manual logging tambahan
+mlflow.log_metric("MAE", mae)
+mlflow.log_metric("R2", r2)
 
-    # ✅ Manual logging (biar muncul jelas di UI)
-    mlflow.log_metric("MAE", mae)
-    mlflow.log_metric("R2", r2)
-
-    # ✅ WAJIB: simpan model (biar Docker bisa build)
-    mlflow.sklearn.log_model(model, "model")
+# simpan model
+mlflow.sklearn.log_model(model, "model")
