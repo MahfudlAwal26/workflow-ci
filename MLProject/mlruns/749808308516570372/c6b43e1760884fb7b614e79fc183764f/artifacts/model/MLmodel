@@ -1,0 +1,46 @@
+artifact_path: model
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.10.20
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.3.2
+is_signature_from_type_hint: false
+mlflow_version: 2.22.0
+model_size_bytes: 6809
+model_uuid: d43732f3675041fb8752c253d701b4ab
+prompts: null
+run_id: c6b43e1760884fb7b614e79fc183764f
+saved_input_example_info:
+  artifact_path: input_example.json
+  pandas_orient: split
+  serving_input_path: serving_input_example.json
+  type: dataframe
+signature:
+  inputs: '[{"type": "double", "name": "Hours_Studied", "required": true}, {"type":
+    "double", "name": "Attendance", "required": true}, {"type": "double", "name":
+    "Parental_Involvement", "required": true}, {"type": "double", "name": "Access_to_Resources",
+    "required": true}, {"type": "double", "name": "Extracurricular_Activities", "required":
+    true}, {"type": "double", "name": "Sleep_Hours", "required": true}, {"type": "double",
+    "name": "Previous_Scores", "required": true}, {"type": "double", "name": "Motivation_Level",
+    "required": true}, {"type": "double", "name": "Internet_Access", "required": true},
+    {"type": "double", "name": "Tutoring_Sessions", "required": true}, {"type": "double",
+    "name": "Family_Income", "required": true}, {"type": "double", "name": "Teacher_Quality",
+    "required": true}, {"type": "double", "name": "School_Type", "required": true},
+    {"type": "double", "name": "Peer_Influence", "required": true}, {"type": "double",
+    "name": "Physical_Activity", "required": true}, {"type": "double", "name": "Learning_Disabilities",
+    "required": true}, {"type": "double", "name": "Parental_Education_Level", "required":
+    true}, {"type": "double", "name": "Distance_from_Home", "required": true}, {"type":
+    "double", "name": "Gender", "required": true}]'
+  outputs: '[{"type": "double", "required": true}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2026-04-25 16:52:29.351711'

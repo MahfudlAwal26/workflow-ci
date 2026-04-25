@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/workflow-ci/workflow-ci/MLProject/mlruns/749808308516570372/c6b43e1760884fb7b614e79fc183764f/artifacts
+end_time: 1777135952199
+entry_point_name: ''
+experiment_id: '749808308516570372'
+lifecycle_stage: active
+run_id: c6b43e1760884fb7b614e79fc183764f
+run_name: unruly-croc-97
+run_uuid: c6b43e1760884fb7b614e79fc183764f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1777135949341
+status: 3
+tags: []
+user_id: runner
