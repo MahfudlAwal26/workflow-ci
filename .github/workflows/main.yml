@@ -78,7 +78,9 @@ jobs:
 
     # 🔥 BUILD DOCKER (nama konsisten)
     - name: Build Docker
+      shell: bash -l {0}
       run: |
+        conda activate mlflow-env
         mlflow models build-docker \
         --model-uri "file://$GITHUB_WORKSPACE/MLProject/mlruns/0/$RUN_ID/artifacts/model" \
         --name student-performance-model
