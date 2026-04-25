@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/workflow-ci/workflow-ci/MLProject/mlruns/749808308516570372/c7995cbb994f47e8a4d1107ce5a278f5/artifacts
+end_time: 1777133279399
+entry_point_name: ''
+experiment_id: '749808308516570372'
+lifecycle_stage: active
+run_id: c7995cbb994f47e8a4d1107ce5a278f5
+run_name: resilient-bird-460
+run_uuid: c7995cbb994f47e8a4d1107ce5a278f5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1777133276717
+status: 3
+tags: []
+user_id: runner
