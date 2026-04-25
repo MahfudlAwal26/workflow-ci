@@ -1,0 +1,15 @@
+artifact_uri: file:///home/runner/work/workflow-ci/workflow-ci/MLProject/mlruns/749808308516570372/b6c82a2e82ca451d8e1ba2984dc6f097/artifacts
+end_time: 1777135009217
+entry_point_name: ''
+experiment_id: '749808308516570372'
+lifecycle_stage: active
+run_id: b6c82a2e82ca451d8e1ba2984dc6f097
+run_name: worried-croc-212
+run_uuid: b6c82a2e82ca451d8e1ba2984dc6f097
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1777135006540
+status: 3
+tags: []
+user_id: runner
